@@ -38,14 +38,28 @@ require(["jquery", "bootstrap.min", "/socket.io/socket.io.js"], function() {
     // Socket buttons
     function iSocketButton() {
       var e = $(this);
-      var data = {
-          id: e.data('id'),
-          value: e.data('value')
-      };
+      var data = getDataAttributes(e);
       socket.emit(e.data('socket'), data);
     }
     $('.socket').unbind('click', iSocketButton);
     $('.socket').bind('click', iSocketButton);
+
+
+    // Helper function to retrieve all
+    // data-* attribute values from element
+    function getDataAttributes(el) {
+      var d = {}, 
+          re_dataAttr = /^data\-(.+)$/;
+
+      $.each(el.get(0).attributes, function(index, attr) {
+          if (re_dataAttr.test(attr.nodeName)) {
+              var key = attr.nodeName.match(re_dataAttr)[1];
+              d[key] = attr.nodeValue;
+          }
+      });
+
+      return d;
+    }
 
     function registerSelectSwitch() {
       $('.switch').children('select').change(function() {
@@ -118,7 +132,7 @@ require(["jquery", "bootstrap.min", "/socket.io/socket.io.js"], function() {
       setTimeout(function() {
         $('.navigation').remove();
         $('#content').empty();
-        $('#content').append('<h1>503</h1><h2>I\'m sorry Dave, i\'m afraid i have lost the connection to the server.</h2><p><a href="/login"><h3>Back to Login</h3></a></p>');
+        $('#content').append('<h1>503</h1><h2>I\'m afraid i have lost the connection to the server.</h2><p><a href="/login"><h3>Back to Login</h3></a></p>');
       }, 15000);
     });
 
