@@ -49,7 +49,7 @@ require(["jquery", "bootstrap.min", "/socket.io/socket.io.js"], function() {
     // data-* attribute values from element
     function getDataAttributes(el) {
       var d = {}, 
-          re_dataAttr = /^data\-(.+)$/;
+      re_dataAttr = /^data\-(.+)$/;
 
       $.each(el.get(0).attributes, function(index, attr) {
           if (re_dataAttr.test(attr.nodeName)) {
