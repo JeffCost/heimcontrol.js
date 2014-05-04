@@ -29,8 +29,15 @@ div.container
                 option(value="led",selected=(item.method == 'led')) led
               div.switch-container
                 div.rcswitch(class=(item.method != 'rcswitch' ? 'hidden' : ''))
-                  label(for="code") Tristate-Code:
-                  input.uppercase(type="text", name="data[#{i}][code]", placeholder="FF0F0FFF", data-required="1", maxlength="8", value=(item.code ? item.code : ''), pattern="^[A-Fa-f0-9]{8}$")
+                  label(for="codeOn") Tristate Code ON:
+                  input.uppercase(type="text", name="data[#{i}][codeOn]", placeholder="FF0F0FFF", data-required="1", maxlength="20", value=(item.codeOn ? item.codeOn : ''))
+                  label(for="codeOff") Tristate Code OFF:
+                  input.uppercase(type="text", name="data[#{i}][codeOff]", placeholder="FF0F0FFF", data-required="1", maxlength="20", value=(item.codeOff ? item.codeOff : ''))
+                  
+                  label(for="pulseLength") Pulse Length:
+                  input(type="text", name="data[#{i}][pulseLength]", placeholder="195", data-required="1", maxlength="4", value=(item.pulseLength ? item.pulseLength : ''))
+                  label(for="protocol") Protocol:
+                  input(type="text", name="data[#{i}][protocol]", placeholder="1", data-required="1", maxlength="4", value=(item.protocol ? item.protocol : ''))
               
                 div.sensor(class=(item.method != 'sensor' ? 'hidden' : ''))
                   label(for="formula") Formula
@@ -87,8 +94,14 @@ div.plugin-container.arduino.settings#template(style="display: none;")
       option(value="led") led
     div.switch-container
       div.rcswitch.hidden
-        label(for="code") Tristate-Code:
-        input.uppercase(type="text", name="data[%i%][code]", maxlength="8", placeholder="FF0F0FFF", data-required="1", pattern="^[A-F0-9]{8}$")
+        label(for="codeOn") Tristate Code ON:
+        input.uppercase(type="text", name="data[%i%][codeOn]", maxlength="20", placeholder="FF0F0FFF1", data-required="1")
+        label(for="codeOff") Tristate Code OFF:
+        input.uppercase(type="text", name="data[%i%][codeOff]", maxlength="20", placeholder="FF0F0FFF0", data-required="1")
+        label(for="pulseLength") Pulse Length:
+        input(type="text", name="data[%i%][pulseLength]", placeholder="195", data-required="1", maxlength="4")
+        label(for="protocol") Protocol:
+        input(type="text", name="data[%i%][protocol]", placeholder="1", data-required="1", maxlength="4", value="1")
       
       div.sensor.hidden
         label(for="formula") Formula:

@@ -19,7 +19,7 @@ define([ 'duino' ], function(duino) {
 
     this.app = app;
     this.id = this.name.toLowerCase();
-    this.board = new duino.Board();
+    this.board = new duino.Board({device: 'USB'});
 
     this.pins = {};
     this.pluginHelper = app.get('plugin helper');
@@ -76,15 +76,19 @@ define([ 'duino' ], function(duino) {
         if (!that.pins[item.pin]) {
           that.pins[item.pin] = new duino.RC({
             board: that.board,
-            pin: parseInt(item.pin)
+            pin         : parseInt(item.pin),
+            codeOn      : item.codeOn,
+            codeOff     : item.codeOff,
+            protocol    : parseInt(item.protocol, 10),
+            pulseLength : parseInt(item.pulseLength, 10)
           });
         }
 
         // Send RC code
         if (item.value) {
-          return that.pins[item.pin].triState(item.code + "FF0F");
+          return that.pins[item.pin].triState(item.codeOn);
         } else {
-          return that.pins[item.pin].triState(item.code + "FF00");
+          return that.pins[item.pin].triState(item.codeOff);
         }
       } else {
         console.log(err);
@@ -178,7 +182,7 @@ define([ 'duino' ], function(duino) {
             var sensor = new duino.Sensor({
               board: that.board,
               pin: item.pin,
-              throttle: 500
+              throttle: 5000
             });
             sensor._id = item._id;
             sensor.on('read', function(err, value) {
