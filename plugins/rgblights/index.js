@@ -20,7 +20,7 @@ define([ 'duino' ], function(duino) {
 
     this.app = app;
     this.id = this.name.toLowerCase();
-    this.board = new duino.Board();
+    this.board = new duino.Board({device: 'USB'});
 
     this.pins = {};
     this.pluginHelper = app.get('plugin helper');
