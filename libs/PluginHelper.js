@@ -8,7 +8,7 @@ if (typeof define !== 'function') {
  * @class PluginHelper
  * @constructor 
  */
-define([ 'fs' ], function( fs ) {
+define([ 'fs', 'requirejs' ], function( fs, requirejs ) {
 
   var PluginHelper = function(app) {
     this.app = app;
