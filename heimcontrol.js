@@ -19,7 +19,7 @@ requirejs.config({
  * Express
  * @see http://expressjs.com/guide.html
  */
-requirejs([ 'http', 'connect', 'mongodb', 'path', 'express', 'node-conf', 'socket.io', 'jade', 'cookie', 'events', './routes', './libs/PluginHelper.js' ], function(Http, Connect, Mongo, Path, Express, Conf, Socketio, Jade, Cookie, Events, Routes, PluginHelper) {
+requirejs([ 'http', 'connect', 'mongodb', 'path', 'express', 'node-conf', 'socket.io', 'jade', 'cookie', 'events', './routes', './libs/PluginHelper.js', 'duino' ], function(Http, Connect, Mongo, Path, Express, Conf, Socketio, Jade, Cookie, Events, Routes, PluginHelper, duino) {
 
   // Load configuration
   var node_env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
@@ -95,6 +95,10 @@ requirejs([ 'http', 'connect', 'mongodb', 'path', 'express', 'node-conf', 'socke
         });
       });
 
+      // Create duino board instance to be used
+      // globally in the application
+      var board = new duino.Board({device: 'USB', debug: true});
+
       // Express
       app.configure(function() {
         app.set('events', new Events.EventEmitter());
@@ -105,6 +109,7 @@ requirejs([ 'http', 'connect', 'mongodb', 'path', 'express', 'node-conf', 'socke
         app.set('sockets', io.sockets);
         app.set('mongo', Mongo);
         app.set('db', db);
+        app.set('board', board);
         app.set('clients', clientList);
         app.set('config', config);
         app.set('routes', Routes);
