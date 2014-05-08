@@ -19,6 +19,12 @@ div.container
             input(type="text", name="data[#{i}][description]", placeholder="Temperature", value="#{item.description}")
             label(for="pin") Arduino PIN:
             input.uppercase(type="text", name="data[#{i}][pin]", placeholder="10", maxlength="2", required="1", value="#{item.pin}", pattern="^A[0-9]|[0-9]{2}$")
+            label(for="room_id") Room:
+            select(name="data[#{i}][room_id]")
+              option(disabled="disabled",selected=(item.room_id == '')) Choose Room
+              option(value="1",selected=(item.room_id == '1')) Default
+              for room in items.rooms
+                option(value="#{room._id}",selected=(item.room_id == room._id)) #{room.name}
             div.switch
               label(for="method") Method:
               select(name="data[#{i}][method]")
@@ -84,6 +90,12 @@ div.plugin-container.arduino.settings#template(style="display: none;")
   input(type="text", name="data[%i%][description]", placeholder="Temperature")
   label(for="pin") Arduino PIN:
   input.uppercase(type="text", name="data[%i%][pin]", placeholder="10", maxlength="2", required="1", pattern="^A[0-9]|[0-9]{2}$")
+  label(for="room_id") Room:
+  select(name="data[%i%][room_id]")
+    option(disabled="disabled", selected=true) Choose Room
+    option(value="1") Default
+    for room in items.rooms
+      option(value="#{room._id}") #{room.name}
   div.switch
     label(for="method") Method:
     select(name="data[%i%][method]")
