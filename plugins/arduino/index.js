@@ -215,11 +215,23 @@ define([ 'duino' ], function(duino) {
    * @param {Object} callback.result The manipulated items
    */
   Arduino.prototype.beforeRender = function(items, callback) {
+    
     var that = this;
-    items.forEach(function(item) {
-      item.value = that.values[item._id] ? that.values[item._id] : 0;
+
+    items.rooms = [];
+
+    that.app.get('db').collection('Room', function(err, collection) {
+       collection.find({}).toArray(function(err, rooms) {
+          
+          items.rooms = rooms;
+          
+          items.forEach(function(item) {
+            item.value = that.values[item._id] ? that.values[item._id] : 0;
+          });
+          
+          return callback(null, items);
+      });
     });
-    return callback(null, items);
   }
 
   /**
