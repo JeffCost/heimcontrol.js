@@ -130,6 +130,46 @@ define([ 'crypto', 'cookie', 'fs' ], function(crypto, cookie, fs) {
       });
     });
   }
+
+  Controller.rooms = function(req, res, next) {
+    req.app.get('db').collection('Room', function(err, collection) {
+       collection.find({}).toArray(function(err, rooms) {
+         var vars = {
+          title: 'Rooms',
+           themes: fs.readdirSync(req.app.get('theme folder')),
+           rooms: rooms
+         };
+        return res.render('rooms', vars);
+      });
+    });
+  };
+
+  Controller.roomsCreate = function(req ,res, next) {
+
+    req.app.get('db').collection('Room', function(err, collection) {
+      collection.find({name: req.body.name}).toArray(function(err, rooms) {
+         if (rooms.length>0) {
+          res.redirect('/rooms');
+          //renderSettings(req, res, {error: 'Error adding room: Rooms with this name already exists'});
+         } else {
+           collection.save({
+             'name' : req.body.name
+           }, function(err, result) {
+            res.redirect('/rooms');
+            //renderSettings(req, res, {success: 'The room has been created'});
+           });
+         }
+       });
+    });
+  };
+
+  Controller.roomsDelete = function(req ,res) {
+    req.app.get('db').collection('Room', function(err, room) {
+      room.remove({name: req.params.name}, function(err, room){
+        res.redirect('/rooms');
+      });
+    });
+  };
   
   /** 
    * Recursive function to combine javascript and css files from the plugins
@@ -172,11 +212,20 @@ define([ 'crypto', 'cookie', 'fs' ], function(crypto, cookie, fs) {
    */
   Controller.index = function(req, res) {
     var html = new StringBuffer();
+    
+    var app_rooms = [];
+
     renderPluginItems(req.app, 'item', 0, html, function(err, html) {
       if (!err) {
-        return res.render('index', {
-          title: 'Home',
-          content: html.toString()
+        req.app.get('db').collection('Room', function(err, collection) {
+           collection.find({}).toArray(function(err, rooms) {
+              app_rooms = rooms;
+              return res.render('index', {
+                title: 'Home',
+                rooms: app_rooms,
+                content: html.toString()
+              });
+          });
         });
       } else {
         return res.render(500, '500');
