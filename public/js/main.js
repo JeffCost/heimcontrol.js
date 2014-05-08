@@ -61,6 +61,21 @@ require(["jquery", "bootstrap.min", "/socket.io/socket.io.js"], function() {
       return d;
     }
 
+    // Index view room dropdown filter
+    function filterByRoom() {
+      $('#rooms-container').children('select').change(function() {
+        var roomId = $(this).val();
+        if(roomId === 'any') {
+          $('.item-room').slideDown();
+        }
+        else {
+          $('.item-room').slideUp();
+          $('.'+roomId).slideDown();
+        }
+      });
+    };
+    filterByRoom();
+
     function registerSelectSwitch() {
       $('.switch').children('select').change(function() {
         var e = $(this).parent('.switch');
