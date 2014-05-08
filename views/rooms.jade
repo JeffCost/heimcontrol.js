@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  div.container
+    h1 Rooms
+    include includes/messages
+    div.row
+      div.span5
+        h3 Add a room
+          form#adduser(action="/rooms", method="POST")
+            p
+              label(for="name") Name:
+              input.name(type="text", name="name", required="1")
+            p
+              input.btn.btn-success.btn-login(type="submit", value="Add")
+      div.span10
+        table(class="table table-bordered table-striped")
+          thead
+            tr
+              th Name
+              th Nodes
+              th Actions
+
+          tbody
+            each room in rooms
+              tr
+                td #{room.name}
+                td 5
+                td
+                  a(href="/rooms/#{room.name}").btn.btn-danger Delete
