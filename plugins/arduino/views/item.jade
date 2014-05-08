@@ -1,5 +1,5 @@
 each item in items
-  div.plugin-container.arduino(class=item.method)
+  div.plugin-container.arduino(class=item.method).item-room(class=item.room_id)
     - if (item.method == 'rcswitch')
       p.description
         span.muted RC Switch:&nbsp;
