@@ -1,6 +1,12 @@
 {
   "port": 8080,
   "secret": "CHANGE_ME",
+  
+  "board": {
+    "device": "USB",
+    "debug": true
+  },  
+  
   "mongo": {
     "host" : "127.0.0.1",
     "name" : "heimcontroljs",
