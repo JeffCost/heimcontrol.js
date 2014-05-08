@@ -147,6 +147,10 @@ requirejs([ 'http', 'connect', 'mongodb', 'path', 'express', 'node-conf', 'socke
       app.get('/register', Routes.showRegister);
       app.post('/register', Routes.doRegister);
 
+      app.get('/rooms', Routes.isAuthorized, Routes.rooms);
+      app.post('/rooms', Routes.isAuthorized, Routes.roomsCreate);
+      app.get('/rooms/:name', Routes.isAuthorized, Routes.roomsDelete);
+
       app.get('/login', Routes.showLogin);
       app.post('/login', Routes.doLogin);
       app.post('/api/login', Routes.createAuthToken);
