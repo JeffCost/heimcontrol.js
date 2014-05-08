@@ -2,4 +2,10 @@ extends layout
 
 block content
   div.container
+    div.rooms
+      select(id="rooms")
+        option() Any
+        for room in rooms
+          option(value="#{room._id}") #{room.name}
     div#content!= content
+      
