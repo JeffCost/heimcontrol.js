@@ -97,7 +97,7 @@ requirejs([ 'http', 'connect', 'mongodb', 'path', 'express', 'node-conf', 'socke
 
       // Create duino board instance to be used
       // globally in the application
-      var board = new duino.Board({device: 'USB', debug: true});
+      var board = new duino.Board(config.board);
 
       // Express
       app.configure(function() {
