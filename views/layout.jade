@@ -48,6 +48,10 @@ html
                           - if (plugin.icon)
                             i(class="#{plugin.icon}") &nbsp;
                           | &nbsp;#{plugin.name}
+                li(class=(title === 'Rooms' ? 'active' : ''))                
+                    a(href="/rooms")
+                      i.icon-home  
+                      | &nbsp;Rooms
               ul.nav.pull-right#bar-menu-right
                 li
                   a.btn-logout(href="/logout") 
