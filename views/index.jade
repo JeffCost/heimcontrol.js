@@ -1,10 +1,11 @@
 extends layout
 
+
 block content
   div.container
-    div.rooms
-      select(id="rooms")
-        option() Any
+    div#rooms-container
+      select(id="rooms-filter", name="rooms-filter", data-callback="filterByRoom()")
+        option(value="any") Any
         for room in rooms
           option(value="#{room._id}") #{room.name}
     div#content!= content
