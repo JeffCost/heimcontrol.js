@@ -1,4 +1,4 @@
-doctype 5
+doctype html
 html
   head
     title heimcontrol.js - Home automation in Node.js with Raspberry PI and Arduino
@@ -39,6 +39,8 @@ html
     meta(property="og:image:height",content="364")
     meta(property="og:description",content="Home automation in Node.js with Raspberry PI and Arduino.")
     script(data-main='#{url}js/heimcontrol', src='#{url}js/require-jquery.js')
+    script.
+      var url = "#{url}";
   body
     a.visible-desktop(href="https://github.com/jeffcost/heimcontrol.js")
       img(style="z-index: 2000; position: absolute; top: 0; left: 0; border: 0;", src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png", alt="Fork me on GitHub")
